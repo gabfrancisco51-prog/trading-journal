@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Forex & Metals Trading Journal | Calendar Journal</title>
+<title>Trading Journal | Remembers Last Month</title>
 <style>
   * {
     box-sizing: border-box;
@@ -95,7 +95,6 @@
     font-size: 13px;
   }
 
-  /* CALENDAR - FULLY RESPONSIVE */
   .calendar-container {
     max-width: 800px;
     margin: 0 auto;
@@ -146,7 +145,6 @@
     cursor: default;
   }
 
-  /* Remove border from last column */
   .day-cell:nth-child(7n) {
     border-right: none;
   }
@@ -175,7 +173,6 @@
     margin-top: 4px;
   }
 
-  /* MODAL - OLD STYLE WITH ALL INPUTS VISIBLE */
   .modal {
     display: none;
     position: fixed;
@@ -351,7 +348,6 @@
     color: var(--red);
   }
 
-  /* DESKTOP */
   @media (min-width: 600px) {
     body { padding: 20px; }
     .stats-grid { grid-template-columns: repeat(6, 1fr); gap: 12px; }
@@ -361,7 +357,6 @@
     .day-pnl { font-size: 12px; }
   }
 
-  /* TINY PHONES */
   @media (max-width: 450px) {
     .day-cell { padding: 6px 3px; min-height: 65px; }
     .day-number { font-size: 11px; }
@@ -461,8 +456,37 @@
 
 <script>
   let journalData = {};
-  let currentYear = 2026;
-  let currentMonth = 2; // March (0 = Jan)
+  
+  // Load saved month from localStorage, otherwise default to current real month
+  let currentYear, currentMonth;
+  
+  function getCurrentRealDate() {
+    const now = new Date();
+    return { year: now.getFullYear(), month: now.getMonth() };
+  }
+  
+  function loadSavedMonth() {
+    const saved = localStorage.getItem('trading_journal_last_month');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        currentYear = parsed.year;
+        currentMonth = parsed.month;
+        return;
+      } catch(e) {}
+    }
+    // Default to current real month (not hardcoded March)
+    const real = getCurrentRealDate();
+    currentYear = real.year;
+    currentMonth = real.month;
+  }
+  
+  function saveCurrentMonth() {
+    localStorage.setItem('trading_journal_last_month', JSON.stringify({
+      year: currentYear,
+      month: currentMonth
+    }));
+  }
 
   function getDateKey(year, month, day) {
     let mm = (month + 1).toString().padStart(2, '0');
@@ -542,6 +566,9 @@
     
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     document.getElementById('monthTitle').innerText = `${monthNames[currentMonth]} ${currentYear}`;
+    
+    // Save the month after rendering
+    saveCurrentMonth();
   }
 
   let currentModalDateKey = null;
@@ -681,6 +708,7 @@
     }
     renderCalendar();
     updateStats();
+    saveCurrentMonth();
   }
 
   function nextMonth() {
@@ -692,6 +720,7 @@
     }
     renderCalendar();
     updateStats();
+    saveCurrentMonth();
   }
 
   function exportData() {
@@ -747,6 +776,8 @@
     }
   });
 
+  // Initialize: load saved month first, then load data
+  loadSavedMonth();
   loadData();
 </script>
 </body>
