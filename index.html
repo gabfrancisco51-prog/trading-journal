@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Forex & Metals Trading Journal | Calendar Journal</title>
+<title>Trading Journal | Mobile Calendar</title>
 <style>
   * {
     box-sizing: border-box;
@@ -21,52 +21,49 @@
     --text-primary: #e8edf2;
     --text-secondary: #8a99b4;
     --accent: #2b7a62;
-    --accent-gold: #d4af37;
   }
 
   body {
     font-family: -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
     background: var(--bg-dark);
     color: var(--text-primary);
-    min-height: 100vh;
-    padding: 12px;
+    padding: 10px;
   }
 
   .dashboard {
-    max-width: 1200px;
-    margin: 0 auto 20px;
+    max-width: 100%;
+    margin: 0 auto 16px;
     background: var(--card-bg);
     border-radius: 20px;
-    padding: 16px 20px;
+    padding: 14px;
     border: 1px solid var(--border);
   }
 
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 14px;
+    gap: 8px;
+    margin-top: 12px;
   }
 
   .stat-card {
     background: rgba(10, 15, 26, 0.6);
     border-radius: 12px;
-    padding: 8px 6px;
+    padding: 8px 4px;
     text-align: center;
   }
 
   .stat-label {
     font-size: 9px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     color: var(--text-secondary);
-    margin-bottom: 4px;
   }
 
   .stat-value {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
-    font-family: 'SF Mono', monospace;
+    font-family: monospace;
   }
 
   .stat-value.positive { color: var(--green); }
@@ -76,39 +73,45 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .month-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
-    font-family: Georgia, serif;
   }
 
   .nav-btn {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.08);
     border: 1px solid var(--border);
-    padding: 6px 16px;
+    padding: 6px 14px;
     border-radius: 30px;
     color: white;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 12px;
+  }
+
+  /* CALENDAR - FULLY MOBILE RESPONSIVE */
+  .calendar-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .calendar {
-    max-width: 1200px;
-    margin: 0 auto;
+    min-width: 100%;
+    width: 100%;
     background: var(--card-bg);
     border-radius: 20px;
     border: 1px solid var(--border);
-    overflow-x: auto;
+    overflow: hidden;
   }
 
   .weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     background: rgba(0,0,0,0.3);
-    padding: 10px 4px;
+    padding: 10px 0;
     text-align: center;
     font-weight: 600;
     font-size: 11px;
@@ -124,7 +127,7 @@
   .day-cell {
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    padding: 6px 4px;
+    padding: 8px 4px;
     cursor: pointer;
     background: rgba(20, 27, 43, 0.5);
     min-height: 70px;
@@ -139,16 +142,21 @@
     cursor: default;
   }
 
+  /* Remove right border from last column */
+  .day-cell:nth-child(7n) {
+    border-right: none;
+  }
+
   .day-number {
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
     color: var(--text-secondary);
     margin-bottom: 6px;
   }
 
   .day-pnl {
     font-weight: 700;
-    font-size: 11px;
+    font-size: 10px;
     white-space: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
@@ -168,7 +176,7 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.95);
     z-index: 2000;
     align-items: center;
     justify-content: center;
@@ -182,11 +190,11 @@
   .modal-content {
     background: var(--card-bg);
     border-radius: 24px;
-    max-width: 500px;
+    max-width: 450px;
     width: 100%;
-    max-height: 90vh;
+    max-height: 85vh;
     overflow-y: auto;
-    padding: 20px;
+    padding: 18px;
     border: 1px solid var(--accent);
   }
 
@@ -211,27 +219,40 @@
   }
 
   .trade-form {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
   }
 
+  .trade-form h4 {
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
   .form-row {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
     margin-bottom: 10px;
   }
 
-  input, select {
+  .form-row input, 
+  .form-row select {
+    width: 100%;
+    padding: 12px;
     background: #1a2333;
     border: 1px solid var(--border);
-    padding: 12px;
     border-radius: 12px;
     color: white;
     font-size: 14px;
-    font-family: inherit;
-    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .double-input {
+    display: flex;
+    gap: 8px;
+  }
+
+  .double-input input {
+    flex: 1;
+    margin-bottom: 0;
   }
 
   .add-trade-btn {
@@ -254,8 +275,8 @@
   .trade-item {
     background: #0f1622;
     border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 8px;
     border-left: 3px solid var(--green);
   }
 
@@ -266,9 +287,10 @@
   .trade-header {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-size: 13px;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .trade-details {
@@ -280,7 +302,7 @@
   .trade-link {
     display: inline-block;
     margin-top: 6px;
-    color: var(--accent-gold);
+    color: #d4af37;
     text-decoration: none;
     font-size: 10px;
     word-break: break-all;
@@ -298,60 +320,63 @@
 
   .day-total {
     margin-top: 16px;
-    padding: 12px;
+    padding: 10px;
     background: #0a0f1a;
     border-radius: 12px;
     text-align: center;
+    font-size: 13px;
     font-weight: bold;
-    font-size: 14px;
   }
 
-  .export-import {
+  .action-buttons {
     display: flex;
     gap: 8px;
     justify-content: flex-end;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
+    margin-bottom: 14px;
   }
 
   .action-btn {
     background: rgba(255,255,255,0.05);
     border: 1px solid var(--border);
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 20px;
     color: var(--text-secondary);
     cursor: pointer;
     font-size: 11px;
   }
 
-  .reset-btn {
-    border-color: #8b2020;
-    color: var(--red);
+  /* DESKTOP IMPROVEMENTS */
+  @media (min-width: 600px) {
+    body { padding: 20px; }
+    .dashboard { max-width: 700px; }
+    .calendar-container { max-width: 700px; margin: 0 auto; }
+    .stats-grid { gap: 12px; }
+    .stat-value { font-size: 22px; }
+    .day-cell { min-height: 85px; padding: 10px 6px; }
+    .day-number { font-size: 13px; }
+    .day-pnl { font-size: 12px; }
+    .form-row { margin-bottom: 12px; }
   }
 
-  /* Desktop improvements */
-  @media (min-width: 768px) {
-    body { padding: 20px; }
-    .stats-grid { grid-template-columns: repeat(6, 1fr); gap: 16px; }
-    .stat-card { padding: 12px; }
-    .stat-value { font-size: 24px; }
-    .stat-label { font-size: 10px; }
-    .day-cell { padding: 8px; min-height: 85px; }
-    .day-number { font-size: 13px; }
-    .day-pnl { font-size: 13px; }
-    .form-row { flex-direction: row; gap: 12px; }
-    .form-row input, .form-row select { width: auto; flex: 1; }
+  /* TINY PHONES (under 400px) */
+  @media (max-width: 400px) {
+    body { padding: 6px; }
+    .day-cell { padding: 6px 3px; min-height: 65px; }
+    .day-number { font-size: 11px; }
+    .day-pnl { font-size: 9px; }
+    .stat-value { font-size: 14px; }
+    .weekdays { font-size: 10px; padding: 8px 0; }
   }
 </style>
 </head>
 <body>
 
 <div class="dashboard">
-  <div class="export-import">
+  <div class="action-buttons">
     <button class="action-btn" id="exportBtn">📥 Export</button>
     <input type="file" id="importFile" accept=".json" style="display:none">
     <button class="action-btn" id="importBtn">📂 Import</button>
-    <button class="action-btn reset-btn" id="resetAllBtn">🗑️ Reset</button>
+    <button class="action-btn" id="resetAllBtn" style="border-color:#8b2020;color:#ff3b30;">🗑️ Reset</button>
   </div>
 
   <div class="month-nav">
@@ -370,14 +395,15 @@
   </div>
 </div>
 
-<div class="calendar">
-  <div class="weekdays">
-    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+<div class="calendar-container">
+  <div class="calendar">
+    <div class="weekdays">
+      <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+    </div>
+    <div class="days-grid" id="calendarGrid"></div>
   </div>
-  <div class="days-grid" id="calendarGrid"></div>
 </div>
 
-<!-- MODAL -->
 <div id="dayModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -389,30 +415,27 @@
       <h4>➕ Add Trade</h4>
       <div class="form-row">
         <select id="tradePair">
-          <optgroup label="Forex">
-            <option>EUR/USD</option><option>GBP/USD</option><option>AUD/USD</option>
-            <option>USD/JPY</option><option>USD/CAD</option><option>USD/CHF</option>
-          </optgroup>
-          <optgroup label="Metals">
-            <option>XAU/USD</option><option>XAG/USD</option>
-          </optgroup>
-          <optgroup label="Indices & Crypto">
-            <option>NAS100</option><option>BTC/USD</option><option>ETH/USD</option>
-          </optgroup>
-        </select>
-        <select id="tradeDirection">
-          <option>Long (Buy)</option>
-          <option>Short (Sell)</option>
+          <optgroup label="📈 Forex"><option>EUR/USD</option><option>GBP/USD</option><option>AUD/USD</option><option>USD/JPY</option><option>USD/CAD</option><option>USD/CHF</option></optgroup>
+          <optgroup label="🥇 Metals"><option>XAU/USD</option><option>XAG/USD</option></optgroup>
+          <optgroup label="📊 Indices/Crypto"><option>NAS100</option><option>BTC/USD</option><option>ETH/USD</option></optgroup>
         </select>
       </div>
       <div class="form-row">
+        <select id="tradeDirection">
+          <option>📈 Long (Buy)</option>
+          <option>📉 Short (Sell)</option>
+        </select>
+      </div>
+      <div class="double-input">
         <input type="number" id="tradeSize" placeholder="Lot size" step="0.01">
+        <input type="number" id="tradePnl" placeholder="P&L in $" step="any">
+      </div>
+      <div class="double-input">
         <input type="number" id="entryPrice" placeholder="Entry" step="any">
         <input type="number" id="exitPrice" placeholder="Exit" step="any">
       </div>
       <div class="form-row">
-        <input type="number" id="tradePnl" placeholder="P&L in $" step="any">
-        <input type="text" id="tradeLink" placeholder="TradingView link">
+        <input type="text" id="tradeLink" placeholder="TradingView link (optional)">
       </div>
       <button class="add-trade-btn" id="addTradeBtn">+ Record Trade</button>
     </div>
@@ -426,32 +449,31 @@
 <script>
   let journalData = {};
   let currentYear = 2026;
-  let currentMonth = 2; // March (0 = Jan)
+  let currentMonth = 2; // 0 = Jan, 2 = March
 
-  function getDateKey(date) {
-    let month = (date.getMonth() + 1).toString().padStart(2,'0');
-    let day = date.getDate().toString().padStart(2,'0');
-    let year = date.getFullYear();
-    return `${month}${day}${year}`;
+  function getDateKey(year, month, day) {
+    let mm = (month + 1).toString().padStart(2, '0');
+    let dd = day.toString().padStart(2, '0');
+    return `${mm}${dd}${year}`;
   }
 
   function parseDateKey(dateKey) {
-    if(!dateKey || dateKey.length !== 8) return null;
-    let month = parseInt(dateKey.substring(0,2)) - 1;
-    let day = parseInt(dateKey.substring(2,4));
-    let year = parseInt(dateKey.substring(4,8));
+    if (!dateKey || dateKey.length !== 8) return null;
+    let month = parseInt(dateKey.substring(0, 2)) - 1;
+    let day = parseInt(dateKey.substring(2, 4));
+    let year = parseInt(dateKey.substring(4, 8));
     return new Date(year, month, day);
   }
 
   function loadData() {
-    let saved = localStorage.getItem('forex_trading_journal');
+    let saved = localStorage.getItem('trading_journal');
     journalData = saved ? JSON.parse(saved) : {};
     renderCalendar();
     updateStats();
   }
 
   function saveData() {
-    localStorage.setItem('forex_trading_journal', JSON.stringify(journalData));
+    localStorage.setItem('trading_journal', JSON.stringify(journalData));
     renderCalendar();
     updateStats();
   }
@@ -466,66 +488,64 @@
   }
 
   function renderCalendar() {
-    let firstDay = new Date(currentYear, currentMonth, 1);
-    let lastDay = new Date(currentYear, currentMonth + 1, 0);
-    let startWeekday = firstDay.getDay();
-    let daysInMonth = lastDay.getDate();
-
-    let grid = document.getElementById('calendarGrid');
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+    const startWeekday = firstDayOfMonth.getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    
+    const grid = document.getElementById('calendarGrid');
     grid.innerHTML = '';
-
-    // Empty cells before month starts
-    for(let i = 0; i < startWeekday; i++) {
-      let empty = document.createElement('div');
+    
+    // Empty cells
+    for (let i = 0; i < startWeekday; i++) {
+      const empty = document.createElement('div');
       empty.className = 'day-cell empty';
       grid.appendChild(empty);
     }
-
+    
     // Actual days
-    for(let d = 1; d <= daysInMonth; d++) {
-      let dateObj = new Date(currentYear, currentMonth, d);
-      let dateKey = getDateKey(dateObj);
-      let dailyPnL = getDailyPnL(dateKey);
-      let tradesCount = getTradesForDate(dateKey).length;
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateKey = getDateKey(currentYear, currentMonth, d);
+      const dailyPnL = getDailyPnL(dateKey);
+      const tradesCount = getTradesForDate(dateKey).length;
       
-      let cell = document.createElement('div');
+      const cell = document.createElement('div');
       cell.className = 'day-cell';
       cell.innerHTML = `
         <div class="day-number">${d}</div>
         <div class="day-pnl ${dailyPnL >= 0 ? 'positive' : 'negative'}">${dailyPnL >= 0 ? '+' : ''}$${dailyPnL.toFixed(2)}</div>
         ${tradesCount > 0 ? `<div class="trade-count">📊 ${tradesCount}</div>` : ''}
       `;
-      cell.addEventListener('click', (function(key) { 
-        return function() { openModal(key); }; 
+      cell.addEventListener('click', (function(key) {
+        return function() { openModal(key); };
       })(dateKey));
       grid.appendChild(cell);
     }
-
-    // Fill remaining cells to complete the grid (always 6 rows = 42 cells)
-    let totalCells = startWeekday + daysInMonth;
-    let remaining = 42 - totalCells;
-    for(let i = 0; i < remaining; i++) {
-      let empty = document.createElement('div');
+    
+    // Fill remaining to complete 6 rows
+    const totalCells = startWeekday + daysInMonth;
+    const remaining = 42 - totalCells;
+    for (let i = 0; i < remaining; i++) {
+      const empty = document.createElement('div');
       empty.className = 'day-cell empty';
       grid.appendChild(empty);
     }
-
-    document.getElementById('monthTitle').innerText = new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
+    
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    document.getElementById('monthTitle').innerText = `${monthNames[currentMonth]} ${currentYear}`;
   }
 
   let currentModalDateKey = null;
 
   function openModal(dateKey) {
     currentModalDateKey = dateKey;
-    let dateObj = parseDateKey(dateKey);
-    let formatted = dateObj ? dateObj.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : dateKey;
+    const date = parseDateKey(dateKey);
+    const formatted = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     document.getElementById('modalDate').innerHTML = `📅 ${formatted}`;
     renderTradesForModal(dateKey);
     document.getElementById('dayModal').classList.add('show');
     
-    // Reset form
     document.getElementById('tradePair').value = 'EUR/USD';
-    document.getElementById('tradeDirection').value = 'Long (Buy)';
+    document.getElementById('tradeDirection').value = '📈 Long (Buy)';
     document.getElementById('tradeSize').value = '';
     document.getElementById('entryPrice').value = '';
     document.getElementById('exitPrice').value = '';
@@ -538,13 +558,13 @@
     const container = document.getElementById('tradesList');
     const totalPnL = getDailyPnL(dateKey);
     
-    if(trades.length === 0) {
+    if (trades.length === 0) {
       container.innerHTML = '<div style="text-align:center;padding:30px;color:#8a99b4;">No trades yet</div>';
     } else {
       let html = '';
       trades.forEach((trade, idx) => {
-        let pnlNum = parseFloat(trade.pnl) || 0;
-        let isProfit = pnlNum >= 0;
+        const pnlNum = parseFloat(trade.pnl) || 0;
+        const isProfit = pnlNum >= 0;
         html += `
           <div class="trade-item ${isProfit ? '' : 'loss'}">
             <div class="trade-header">
@@ -553,58 +573,54 @@
             </div>
             <div class="trade-details">Size: ${trade.size} | Entry: ${trade.entry} | Exit: ${trade.exit}</div>
             <div class="trade-details" style="color: ${isProfit ? '#00c853' : '#ff3b30'}">P&L: $${pnlNum.toFixed(2)}</div>
-            ${trade.link ? `<a href="${trade.link}" target="_blank" class="trade-link">🔗 TradingView</a>` : ''}
+            ${trade.link ? `<a href="${trade.link}" target="_blank" class="trade-link">🔗 TradingView Chart</a>` : ''}
           </div>
         `;
       });
       container.innerHTML = html;
+      
       document.querySelectorAll('.delete-trade').forEach(btn => {
         btn.addEventListener('click', (e) => {
-          let idx = parseInt(btn.getAttribute('data-index'));
+          const idx = parseInt(btn.getAttribute('data-index'));
           deleteTradeFromDay(dateKey, idx);
         });
       });
     }
-    document.getElementById('dayTotalDisplay').innerHTML = `Day Total: <span style="color:${totalPnL >=0 ? '#00c853' : '#ff3b30'}">${totalPnL >=0 ? '+' : ''}$${totalPnL.toFixed(2)}</span> | ${trades.length} trade(s)`;
+    document.getElementById('dayTotalDisplay').innerHTML = `📊 Day Total: <span style="color:${totalPnL >= 0 ? '#00c853' : '#ff3b30'}">${totalPnL >= 0 ? '+' : ''}$${totalPnL.toFixed(2)}</span> | ${trades.length} trade(s)`;
   }
 
   function deleteTradeFromDay(dateKey, tradeIndex) {
-    if(!journalData[dateKey]) return;
+    if (!journalData[dateKey]) return;
     journalData[dateKey].trades.splice(tradeIndex, 1);
-    if(journalData[dateKey].trades.length === 0) {
+    if (journalData[dateKey].trades.length === 0) {
       delete journalData[dateKey];
     }
     saveData();
-    if(currentModalDateKey === dateKey) renderTradesForModal(dateKey);
+    if (currentModalDateKey === dateKey) renderTradesForModal(dateKey);
   }
 
   function addTradeToCurrentDay() {
-    if(!currentModalDateKey) return;
-    let pair = document.getElementById('tradePair').value;
+    if (!currentModalDateKey) return;
+    
+    const pair = document.getElementById('tradePair').value;
     let direction = document.getElementById('tradeDirection').value;
-    let size = parseFloat(document.getElementById('tradeSize').value) || 0;
-    let entry = parseFloat(document.getElementById('entryPrice').value) || 0;
-    let exit = parseFloat(document.getElementById('exitPrice').value) || 0;
-    let pnl = parseFloat(document.getElementById('tradePnl').value);
-    let link = document.getElementById('tradeLink').value.trim();
-
-    if(isNaN(pnl)) {
-      alert("Enter valid P&L amount");
+    const size = parseFloat(document.getElementById('tradeSize').value) || 0;
+    const entry = parseFloat(document.getElementById('entryPrice').value) || 0;
+    const exit = parseFloat(document.getElementById('exitPrice').value) || 0;
+    const pnl = parseFloat(document.getElementById('tradePnl').value);
+    const link = document.getElementById('tradeLink').value.trim();
+    
+    if (isNaN(pnl)) {
+      alert("Please enter a valid P&L amount");
       return;
     }
-
-    let newTrade = {
-      pair: pair,
-      direction: direction,
-      size: size,
-      entry: entry,
-      exit: exit,
-      pnl: pnl,
-      link: link || "",
+    
+    const newTrade = {
+      pair, direction, size, entry, exit, pnl, link,
       timestamp: Date.now()
     };
-
-    if(!journalData[currentModalDateKey]) {
+    
+    if (!journalData[currentModalDateKey]) {
       journalData[currentModalDateKey] = { trades: [] };
     }
     journalData[currentModalDateKey].trades.push(newTrade);
@@ -613,30 +629,30 @@
   }
 
   function updateStats() {
-    let monthlyTrades = [];
-    let monthlyDays = new Set();
+    const monthlyTrades = [];
+    const monthlyDays = new Set();
     
-    for(let dateKey in journalData) {
-      let date = parseDateKey(dateKey);
-      if(date && date.getFullYear() === currentYear && date.getMonth() === currentMonth) {
+    for (const dateKey in journalData) {
+      const date = parseDateKey(dateKey);
+      if (date && date.getFullYear() === currentYear && date.getMonth() === currentMonth) {
         monthlyDays.add(dateKey);
         journalData[dateKey].trades.forEach(t => monthlyTrades.push(parseFloat(t.pnl) || 0));
       }
     }
     
-    let totalPnl = monthlyTrades.reduce((a,b) => a+b, 0);
-    let winningTrades = monthlyTrades.filter(p => p > 0).length;
-    let totalTrades = monthlyTrades.length;
-    let winRate = totalTrades === 0 ? 0 : (winningTrades / totalTrades) * 100;
+    const totalPnl = monthlyTrades.reduce((a, b) => a + b, 0);
+    const winningTrades = monthlyTrades.filter(p => p > 0).length;
+    const totalTrades = monthlyTrades.length;
+    const winRate = totalTrades === 0 ? 0 : (winningTrades / totalTrades) * 100;
     
-    let dayPnls = [];
-    for(let dateKey of monthlyDays) {
+    const dayPnls = [];
+    for (const dateKey of monthlyDays) {
       dayPnls.push(getDailyPnL(dateKey));
     }
-    let bestDay = dayPnls.length ? Math.max(...dayPnls) : 0;
-    let worstDay = dayPnls.length ? Math.min(...dayPnls) : 0;
-
-    let totalElem = document.getElementById('totalPnl');
+    const bestDay = dayPnls.length ? Math.max(...dayPnls) : 0;
+    const worstDay = dayPnls.length ? Math.min(...dayPnls) : 0;
+    
+    const totalElem = document.getElementById('totalPnl');
     totalElem.innerHTML = `${totalPnl >= 0 ? '+' : ''}$${totalPnl.toFixed(2)}`;
     totalElem.className = `stat-value ${totalPnl >= 0 ? 'positive' : 'negative'}`;
     document.getElementById('winRate').innerHTML = `${winRate.toFixed(1)}%`;
@@ -647,7 +663,7 @@
   }
 
   function prevMonth() {
-    if(currentMonth === 0) {
+    if (currentMonth === 0) {
       currentMonth = 11;
       currentYear--;
     } else {
@@ -658,7 +674,7 @@
   }
 
   function nextMonth() {
-    if(currentMonth === 11) {
+    if (currentMonth === 11) {
       currentMonth = 0;
       currentYear++;
     } else {
@@ -669,33 +685,35 @@
   }
 
   function exportData() {
-    let dataStr = JSON.stringify(journalData, null, 2);
-    let blob = new Blob([dataStr], {type: 'application/json'});
-    let url = URL.createObjectURL(blob);
-    let a = document.createElement('a');
+    const dataStr = JSON.stringify(journalData, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
     a.href = url;
-    a.download = `trading_journal_${currentYear}_${currentMonth+1}.json`;
+    a.download = `trading_journal_${currentYear}_${currentMonth + 1}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }
 
   function importData(file) {
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = (e) => {
       try {
         journalData = JSON.parse(e.target.result);
         saveData();
         alert('Import successful!');
-      } catch(err) { alert('Invalid file'); }
+      } catch (err) {
+        alert('Invalid backup file');
+      }
     };
     reader.readAsText(file);
   }
 
   function resetAll() {
-    if(confirm('Delete ALL trading data? This cannot be undone.')) {
+    if (confirm('⚠️ DELETE ALL TRADING DATA? This cannot be undone.')) {
       journalData = {};
       saveData();
-      if(document.getElementById('dayModal').classList.contains('show')) {
+      if (document.getElementById('dayModal').classList.contains('show')) {
         document.getElementById('dayModal').classList.remove('show');
       }
     }
@@ -708,9 +726,16 @@
   document.getElementById('addTradeBtn').addEventListener('click', addTradeToCurrentDay);
   document.getElementById('exportBtn').addEventListener('click', exportData);
   document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
-  document.getElementById('importFile').addEventListener('change', (e) => { if(e.target.files[0]) importData(e.target.files[0]); e.target.value = ''; });
+  document.getElementById('importFile').addEventListener('change', (e) => {
+    if (e.target.files[0]) importData(e.target.files[0]);
+    e.target.value = '';
+  });
   document.getElementById('resetAllBtn').addEventListener('click', resetAll);
-  window.addEventListener('click', (e) => { if(e.target === document.getElementById('dayModal')) document.getElementById('dayModal').classList.remove('show'); });
+  window.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('dayModal')) {
+      document.getElementById('dayModal').classList.remove('show');
+    }
+  });
 
   loadData();
 </script>
