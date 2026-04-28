@@ -17,14 +17,11 @@
     --card-bg: #141b2b;
     --border: #1f2a3e;
     --green: #00c853;
-    --green-dim: #1b5e2a;
     --red: #ff3b30;
-    --red-dim: #8b2020;
     --text-primary: #e8edf2;
     --text-secondary: #8a99b4;
     --accent: #2b7a62;
     --accent-gold: #d4af37;
-    --modal-overlay: rgba(0,0,0,0.85);
   }
 
   body {
@@ -32,44 +29,44 @@
     background: var(--bg-dark);
     color: var(--text-primary);
     min-height: 100vh;
-    padding: 20px 16px 40px;
+    padding: 12px;
   }
 
   .dashboard {
-    max-width: 1400px;
-    margin: 0 auto 24px;
+    max-width: 1200px;
+    margin: 0 auto 20px;
     background: var(--card-bg);
     border-radius: 20px;
-    padding: 20px 24px;
+    padding: 16px 20px;
     border: 1px solid var(--border);
   }
 
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 16px;
-    margin-top: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
   }
 
   .stat-card {
     background: rgba(10, 15, 26, 0.6);
-    border-radius: 14px;
-    padding: 12px 16px;
+    border-radius: 12px;
+    padding: 8px 6px;
     text-align: center;
   }
 
   .stat-label {
-    font-size: 11px;
+    font-size: 9px;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     color: var(--text-secondary);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 
   .stat-value {
-    font-size: 28px;
+    font-size: 18px;
     font-weight: 700;
-    font-family: 'SF Mono', 'Courier New', monospace;
+    font-family: 'SF Mono', monospace;
   }
 
   .stat-value.positive { color: var(--green); }
@@ -79,55 +76,42 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
   .month-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     font-family: Georgia, serif;
-  }
-
-  .nav-buttons {
-    display: flex;
-    gap: 12px;
   }
 
   .nav-btn {
     background: rgba(255,255,255,0.05);
     border: 1px solid var(--border);
-    padding: 8px 20px;
+    padding: 6px 16px;
     border-radius: 30px;
     color: white;
     cursor: pointer;
-    font-size: 14px;
-    transition: all 0.2s;
-  }
-
-  .nav-btn:hover {
-    background: var(--accent);
-    border-color: var(--accent);
+    font-size: 13px;
   }
 
   .calendar {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     background: var(--card-bg);
-    border-radius: 24px;
+    border-radius: 20px;
     border: 1px solid var(--border);
-    overflow: hidden;
+    overflow-x: auto;
   }
 
   .weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     background: rgba(0,0,0,0.3);
-    padding: 12px 8px;
+    padding: 10px 4px;
     text-align: center;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 11px;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border);
   }
@@ -138,19 +122,16 @@
   }
 
   .day-cell {
-    aspect-ratio: 1 / 0.9;
-    min-height: 95px;
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    padding: 8px;
+    padding: 6px 4px;
     cursor: pointer;
-    transition: background 0.15s;
     background: rgba(20, 27, 43, 0.5);
-    position: relative;
+    min-height: 70px;
   }
 
-  .day-cell:hover {
-    background: rgba(43, 122, 98, 0.2);
+  .day-cell:active {
+    background: rgba(43, 122, 98, 0.3);
   }
 
   .day-cell.empty {
@@ -159,42 +140,39 @@
   }
 
   .day-number {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--text-secondary);
-    margin-bottom: 8px;
-  }
-
-  .day-summary {
-    font-size: 11px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    margin-bottom: 6px;
   }
 
   .day-pnl {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
   }
 
   .day-pnl.positive { color: var(--green); }
   .day-pnl.negative { color: var(--red); }
 
   .trade-count {
-    font-size: 10px;
+    font-size: 9px;
     color: var(--text-secondary);
+    margin-top: 4px;
   }
 
+  /* MODAL */
   .modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: var(--modal-overlay);
+    background: rgba(0,0,0,0.9);
     z-index: 2000;
     align-items: center;
     justify-content: center;
-    padding: 16px;
-    backdrop-filter: blur(6px);
+    padding: 12px;
   }
 
   .modal.show {
@@ -204,11 +182,11 @@
   .modal-content {
     background: var(--card-bg);
     border-radius: 24px;
-    max-width: 650px;
+    max-width: 500px;
     width: 100%;
-    max-height: 85vh;
+    max-height: 90vh;
     overflow-y: auto;
-    padding: 24px;
+    padding: 20px;
     border: 1px solid var(--accent);
   }
 
@@ -216,66 +194,60 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
   .modal-header h2 {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .close-modal {
     background: none;
     border: none;
     color: white;
-    font-size: 26px;
+    font-size: 28px;
     cursor: pointer;
     padding: 0 8px;
   }
 
   .trade-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 28px;
-    padding-bottom: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
   }
 
   .form-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
   input, select {
     background: #1a2333;
     border: 1px solid var(--border);
-    padding: 10px 12px;
-    border-radius: 10px;
+    padding: 12px;
+    border-radius: 12px;
     color: white;
     font-size: 14px;
     font-family: inherit;
-  }
-
-  input:focus, select:focus {
-    outline: none;
-    border-color: var(--accent);
+    width: 100%;
   }
 
   .add-trade-btn {
     background: var(--accent);
     border: none;
-    padding: 12px;
+    padding: 14px;
     border-radius: 12px;
     color: white;
     font-weight: 600;
     cursor: pointer;
+    width: 100%;
     margin-top: 8px;
   }
 
   .trades-list {
-    max-height: 300px;
+    max-height: 280px;
     overflow-y: auto;
   }
 
@@ -300,9 +272,9 @@
   }
 
   .trade-details {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--text-secondary);
-    margin: 6px 0;
+    margin: 4px 0;
   }
 
   .trade-link {
@@ -310,7 +282,7 @@
     margin-top: 6px;
     color: var(--accent-gold);
     text-decoration: none;
-    font-size: 11px;
+    font-size: 10px;
     word-break: break-all;
   }
 
@@ -331,11 +303,12 @@
     border-radius: 12px;
     text-align: center;
     font-weight: bold;
+    font-size: 14px;
   }
 
   .export-import {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     justify-content: flex-end;
     margin-bottom: 16px;
     flex-wrap: wrap;
@@ -344,24 +317,30 @@
   .action-btn {
     background: rgba(255,255,255,0.05);
     border: 1px solid var(--border);
-    padding: 6px 14px;
+    padding: 6px 12px;
     border-radius: 20px;
     color: var(--text-secondary);
     cursor: pointer;
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .reset-btn {
-    border-color: var(--red-dim);
+    border-color: #8b2020;
     color: var(--red);
   }
 
-  @media (max-width: 700px) {
-    .day-cell { padding: 4px; min-height: 70px; }
-    .day-number { font-size: 10px; }
-    .day-pnl { font-size: 10px; }
-    .stat-value { font-size: 20px; }
-    .form-row { grid-template-columns: 1fr; }
+  /* Desktop improvements */
+  @media (min-width: 768px) {
+    body { padding: 20px; }
+    .stats-grid { grid-template-columns: repeat(6, 1fr); gap: 16px; }
+    .stat-card { padding: 12px; }
+    .stat-value { font-size: 24px; }
+    .stat-label { font-size: 10px; }
+    .day-cell { padding: 8px; min-height: 85px; }
+    .day-number { font-size: 13px; }
+    .day-pnl { font-size: 13px; }
+    .form-row { flex-direction: row; gap: 12px; }
+    .form-row input, .form-row select { width: auto; flex: 1; }
   }
 </style>
 </head>
@@ -369,22 +348,22 @@
 
 <div class="dashboard">
   <div class="export-import">
-    <button class="action-btn" id="exportBtn">📥 Export Backup</button>
+    <button class="action-btn" id="exportBtn">📥 Export</button>
     <input type="file" id="importFile" accept=".json" style="display:none">
-    <button class="action-btn" id="importBtn">📂 Import Backup</button>
-    <button class="action-btn reset-btn" id="resetAllBtn">⚠️ Reset All Data</button>
+    <button class="action-btn" id="importBtn">📂 Import</button>
+    <button class="action-btn reset-btn" id="resetAllBtn">🗑️ Reset</button>
   </div>
 
   <div class="month-nav">
-    <button class="nav-btn" id="prevMonth">← Previous</button>
+    <button class="nav-btn" id="prevMonth">← Prev</button>
     <h2 class="month-title" id="monthTitle">March 2026</h2>
     <button class="nav-btn" id="nextMonth">Next →</button>
   </div>
 
   <div class="stats-grid">
-    <div class="stat-card"><div class="stat-label">Total P&L (Month)</div><div class="stat-value" id="totalPnl">$0</div></div>
+    <div class="stat-card"><div class="stat-label">Total P&L</div><div class="stat-value" id="totalPnl">$0</div></div>
     <div class="stat-card"><div class="stat-label">Win Rate</div><div class="stat-value" id="winRate">0%</div></div>
-    <div class="stat-card"><div class="stat-label">Total Trades</div><div class="stat-value" id="totalTrades">0</div></div>
+    <div class="stat-card"><div class="stat-label">Trades</div><div class="stat-value" id="totalTrades">0</div></div>
     <div class="stat-card"><div class="stat-label">Winning Days</div><div class="stat-value" id="winningDays">0</div></div>
     <div class="stat-card"><div class="stat-label">Best Day</div><div class="stat-value positive" id="bestDay">$0</div></div>
     <div class="stat-card"><div class="stat-label">Worst Day</div><div class="stat-value negative" id="worstDay">$0</div></div>
@@ -393,61 +372,53 @@
 
 <div class="calendar">
   <div class="weekdays">
-    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
   </div>
   <div class="days-grid" id="calendarGrid"></div>
 </div>
 
+<!-- MODAL -->
 <div id="dayModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2 id="modalDate">Trades for </h2>
+      <h2 id="modalDate">Trades</h2>
       <button class="close-modal" id="closeModalBtn">×</button>
     </div>
 
     <div class="trade-form">
-      <h4>➕ Add New Trade</h4>
+      <h4>➕ Add Trade</h4>
       <div class="form-row">
         <select id="tradePair">
-          <!-- Forex USD Pairs -->
-          <optgroup label="📈 Forex (USD Pairs)">
-            <option value="EUR/USD">EUR/USD - Euro</option>
-            <option value="GBP/USD">GBP/USD - British Pound</option>
-            <option value="AUD/USD">AUD/USD - Australian Dollar</option>
-            <option value="NZD/USD">NZD/USD - New Zealand Dollar</option>
-            <option value="USD/JPY">USD/JPY - Japanese Yen</option>
-            <option value="USD/CAD">USD/CAD - Canadian Dollar</option>
-            <option value="USD/CHF">USD/CHF - Swiss Franc</option>
+          <optgroup label="Forex">
+            <option>EUR/USD</option><option>GBP/USD</option><option>AUD/USD</option>
+            <option>USD/JPY</option><option>USD/CAD</option><option>USD/CHF</option>
           </optgroup>
-          <optgroup label="🥇 Metals & Commodities">
-            <option value="XAU/USD">XAU/USD - Gold</option>
-            <option value="XAG/USD">XAG/USD - Silver</option>
+          <optgroup label="Metals">
+            <option>XAU/USD</option><option>XAG/USD</option>
           </optgroup>
-          <optgroup label="📊 Indices & Crypto">
-            <option value="NAS100">NASDAQ 100 (US100)</option>
-            <option value="BTC/USD">BTC/USD - Bitcoin</option>
-            <option value="ETH/USD">ETH/USD - Ethereum</option>
+          <optgroup label="Indices & Crypto">
+            <option>NAS100</option><option>BTC/USD</option><option>ETH/USD</option>
           </optgroup>
         </select>
         <select id="tradeDirection">
-          <option value="Long">📈 Long (Buy)</option>
-          <option value="Short">📉 Short (Sell)</option>
+          <option>Long (Buy)</option>
+          <option>Short (Sell)</option>
         </select>
       </div>
       <div class="form-row">
-        <input type="number" id="tradeSize" placeholder="Lot size / Units" step="0.01" value="0.1">
-        <input type="number" id="entryPrice" placeholder="Entry price" step="any">
-        <input type="number" id="exitPrice" placeholder="Exit price" step="any">
+        <input type="number" id="tradeSize" placeholder="Lot size" step="0.01">
+        <input type="number" id="entryPrice" placeholder="Entry" step="any">
+        <input type="number" id="exitPrice" placeholder="Exit" step="any">
       </div>
       <div class="form-row">
         <input type="number" id="tradePnl" placeholder="P&L in $" step="any">
-        <input type="text" id="tradeLink" placeholder="TradingView link (optional)">
+        <input type="text" id="tradeLink" placeholder="TradingView link">
       </div>
       <button class="add-trade-btn" id="addTradeBtn">+ Record Trade</button>
     </div>
 
-    <h4>📋 Trades for this day</h4>
-    <div id="tradesList" class="trades-list"></div>
+    <h4>📋 Trades</h4>
+    <div id="tradesList"></div>
     <div id="dayTotalDisplay" class="day-total"></div>
   </div>
 </div>
@@ -455,7 +426,7 @@
 <script>
   let journalData = {};
   let currentYear = 2026;
-  let currentMonth = 2; // March 2026 (0-indexed)
+  let currentMonth = 2; // March (0 = Jan)
 
   function getDateKey(date) {
     let month = (date.getMonth() + 1).toString().padStart(2,'0');
@@ -474,11 +445,7 @@
 
   function loadData() {
     let saved = localStorage.getItem('forex_trading_journal');
-    if(saved) {
-      journalData = JSON.parse(saved);
-    } else {
-      journalData = {};
-    }
+    journalData = saved ? JSON.parse(saved) : {};
     renderCalendar();
     updateStats();
   }
@@ -495,8 +462,7 @@
 
   function getDailyPnL(dateKey) {
     let trades = getTradesForDate(dateKey);
-    let total = trades.reduce((sum, t) => sum + (parseFloat(t.pnl) || 0), 0);
-    return total;
+    return trades.reduce((sum, t) => sum + (parseFloat(t.pnl) || 0), 0);
   }
 
   function renderCalendar() {
@@ -508,12 +474,14 @@
     let grid = document.getElementById('calendarGrid');
     grid.innerHTML = '';
 
+    // Empty cells before month starts
     for(let i = 0; i < startWeekday; i++) {
       let empty = document.createElement('div');
       empty.className = 'day-cell empty';
       grid.appendChild(empty);
     }
 
+    // Actual days
     for(let d = 1; d <= daysInMonth; d++) {
       let dateObj = new Date(currentYear, currentMonth, d);
       let dateKey = getDateKey(dateObj);
@@ -524,15 +492,16 @@
       cell.className = 'day-cell';
       cell.innerHTML = `
         <div class="day-number">${d}</div>
-        <div class="day-summary">
-          <div class="day-pnl ${dailyPnL >= 0 ? 'positive' : 'negative'}">${dailyPnL >= 0 ? '+' : ''}$${dailyPnL.toFixed(2)}</div>
-          ${tradesCount > 0 ? `<div class="trade-count">📊 ${tradesCount} trade${tradesCount > 1 ? 's' : ''}</div>` : '<div class="trade-count">—</div>'}
-        </div>
+        <div class="day-pnl ${dailyPnL >= 0 ? 'positive' : 'negative'}">${dailyPnL >= 0 ? '+' : ''}$${dailyPnL.toFixed(2)}</div>
+        ${tradesCount > 0 ? `<div class="trade-count">📊 ${tradesCount}</div>` : ''}
       `;
-      cell.addEventListener('click', (function(key) { return function() { openModal(key); }; })(dateKey));
+      cell.addEventListener('click', (function(key) { 
+        return function() { openModal(key); }; 
+      })(dateKey));
       grid.appendChild(cell);
     }
 
+    // Fill remaining cells to complete the grid (always 6 rows = 42 cells)
     let totalCells = startWeekday + daysInMonth;
     let remaining = 42 - totalCells;
     for(let i = 0; i < remaining; i++) {
@@ -554,9 +523,10 @@
     renderTradesForModal(dateKey);
     document.getElementById('dayModal').classList.add('show');
     
+    // Reset form
     document.getElementById('tradePair').value = 'EUR/USD';
-    document.getElementById('tradeDirection').value = 'Long';
-    document.getElementById('tradeSize').value = '0.1';
+    document.getElementById('tradeDirection').value = 'Long (Buy)';
+    document.getElementById('tradeSize').value = '';
     document.getElementById('entryPrice').value = '';
     document.getElementById('exitPrice').value = '';
     document.getElementById('tradePnl').value = '';
@@ -569,22 +539,21 @@
     const totalPnL = getDailyPnL(dateKey);
     
     if(trades.length === 0) {
-      container.innerHTML = '<div style="text-align:center;padding:30px;color:#8a99b4;">No trades recorded yet. Add your first trade above.</div>';
+      container.innerHTML = '<div style="text-align:center;padding:30px;color:#8a99b4;">No trades yet</div>';
     } else {
       let html = '';
       trades.forEach((trade, idx) => {
         let pnlNum = parseFloat(trade.pnl) || 0;
         let isProfit = pnlNum >= 0;
-        let pairDisplay = trade.pair;
         html += `
           <div class="trade-item ${isProfit ? '' : 'loss'}">
             <div class="trade-header">
-              <strong>${pairDisplay}</strong> <span>${trade.direction}</span>
+              <strong>${trade.pair}</strong> <span>${trade.direction}</span>
               <button class="delete-trade" data-index="${idx}">Delete</button>
             </div>
             <div class="trade-details">Size: ${trade.size} | Entry: ${trade.entry} | Exit: ${trade.exit}</div>
-            <div class="trade-details" style="color: ${isProfit ? '#00c853' : '#ff3b30'}; font-weight:bold;">P&L: $${pnlNum.toFixed(2)}</div>
-            ${trade.link ? `<a href="${trade.link}" target="_blank" class="trade-link">🔗 TradingView Chart →</a>` : ''}
+            <div class="trade-details" style="color: ${isProfit ? '#00c853' : '#ff3b30'}">P&L: $${pnlNum.toFixed(2)}</div>
+            ${trade.link ? `<a href="${trade.link}" target="_blank" class="trade-link">🔗 TradingView</a>` : ''}
           </div>
         `;
       });
@@ -596,7 +565,7 @@
         });
       });
     }
-    document.getElementById('dayTotalDisplay').innerHTML = `📊 Day Total P&L: <span style="color:${totalPnL >=0 ? '#00c853' : '#ff3b30'}">${totalPnL >=0 ? '+' : ''}$${totalPnL.toFixed(2)}</span> | ${trades.length} trade(s)`;
+    document.getElementById('dayTotalDisplay').innerHTML = `Day Total: <span style="color:${totalPnL >=0 ? '#00c853' : '#ff3b30'}">${totalPnL >=0 ? '+' : ''}$${totalPnL.toFixed(2)}</span> | ${trades.length} trade(s)`;
   }
 
   function deleteTradeFromDay(dateKey, tradeIndex) {
@@ -620,7 +589,7 @@
     let link = document.getElementById('tradeLink').value.trim();
 
     if(isNaN(pnl)) {
-      alert("Please enter a valid P&L amount");
+      alert("Enter valid P&L amount");
       return;
     }
 
@@ -646,14 +615,15 @@
   function updateStats() {
     let monthlyTrades = [];
     let monthlyDays = new Set();
+    
     for(let dateKey in journalData) {
       let date = parseDateKey(dateKey);
       if(date && date.getFullYear() === currentYear && date.getMonth() === currentMonth) {
         monthlyDays.add(dateKey);
-        let trades = journalData[dateKey].trades;
-        trades.forEach(t => monthlyTrades.push(parseFloat(t.pnl) || 0));
+        journalData[dateKey].trades.forEach(t => monthlyTrades.push(parseFloat(t.pnl) || 0));
       }
     }
+    
     let totalPnl = monthlyTrades.reduce((a,b) => a+b, 0);
     let winningTrades = monthlyTrades.filter(p => p > 0).length;
     let totalTrades = monthlyTrades.length;
@@ -663,7 +633,6 @@
     for(let dateKey of monthlyDays) {
       dayPnls.push(getDailyPnL(dateKey));
     }
-    let winningDays = dayPnls.filter(p => p > 0).length;
     let bestDay = dayPnls.length ? Math.max(...dayPnls) : 0;
     let worstDay = dayPnls.length ? Math.min(...dayPnls) : 0;
 
@@ -672,7 +641,7 @@
     totalElem.className = `stat-value ${totalPnl >= 0 ? 'positive' : 'negative'}`;
     document.getElementById('winRate').innerHTML = `${winRate.toFixed(1)}%`;
     document.getElementById('totalTrades').innerHTML = totalTrades;
-    document.getElementById('winningDays').innerHTML = winningDays;
+    document.getElementById('winningDays').innerHTML = monthlyDays.size;
     document.getElementById('bestDay').innerHTML = `+$${bestDay.toFixed(2)}`;
     document.getElementById('worstDay').innerHTML = `$${worstDay.toFixed(2)}`;
   }
@@ -714,23 +683,25 @@
     let reader = new FileReader();
     reader.onload = (e) => {
       try {
-        let imported = JSON.parse(e.target.result);
-        journalData = imported;
+        journalData = JSON.parse(e.target.result);
         saveData();
         alert('Import successful!');
-      } catch(err) { alert('Invalid backup file'); }
+      } catch(err) { alert('Invalid file'); }
     };
     reader.readAsText(file);
   }
 
   function resetAll() {
-    if(confirm('⚠️ WARNING: This will delete ALL trading data. Are you sure?')) {
+    if(confirm('Delete ALL trading data? This cannot be undone.')) {
       journalData = {};
       saveData();
-      if(document.getElementById('dayModal').classList.contains('show')) document.getElementById('dayModal').classList.remove('show');
+      if(document.getElementById('dayModal').classList.contains('show')) {
+        document.getElementById('dayModal').classList.remove('show');
+      }
     }
   }
 
+  // Event listeners
   document.getElementById('prevMonth').addEventListener('click', prevMonth);
   document.getElementById('nextMonth').addEventListener('click', nextMonth);
   document.getElementById('closeModalBtn').addEventListener('click', () => document.getElementById('dayModal').classList.remove('show'));
